@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Ngủ Ngon 💕</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+            animation: pulse 5s infinite ease-in-out;
+        }
+        .container {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        #loiChuc {
+            font-size: 1.5em;
+            line-height: 1.5;
+            display: inline-block;
+            white-space: pre;
+            overflow: hidden;
+            border-right: 0.15em solid #fff;
+            animation: typing 4s steps(60, end), blink-caret 0.75s step-end infinite;
+        }
+        #quote {
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 3s forwards 1s;
+        }
+        .heart {
+            font-size: 2em;
+            animation: heartbeat 1.5s infinite;
+        }
+        .falling-heart {
+            position: absolute;
+            font-size: 1.5em;
+            color: #ff6b6b;
+            animation: fall 3s linear infinite;
+            pointer-events: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #fff; }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes pulse {
+            0%, 100% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+            50% { background: linear-gradient(135deg, #ff6b6b, #ffb199); }
+        }
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <!-- Dòng 1: Tiêu đề -->
+        <h1>Chúc <span id="tenNguoiYeu">Người Yêu</span> Ngủ Ngon! 🌙</h1>
+        <!-- Dòng 2: Lời chúc ngẫu nhiên -->
+        <p id="loiChuc"></p>
+        <!-- Dòng 3: Quote lãng mạn -->
+        <p id="quote">Anh sẽ luôn ở đây, canh giấc mơ cho em! 😴</p>
+        <!-- Dòng 4: Trái tim đập -->
+        <p class="heart">💖</p>
+        <!-- Dòng 5: Nút đổi lời chúc -->
+        <button onclick="doiLoiChuc()">Lời chúc mới</button>
+    </div>
+    <script>
+        // Tạo lời chúc ngẫu nhiên
+        const tenNguoiYeu = "Tiên"; // Thay bằng tên người yêu
+        const messages = [
+            `Anh chúc ${tenNguoiYeu} ngủ ngon, mơ đẹp nha! 😘 Yêu em nhiều lắm!`,
+            `Ngáp ngáp! Đến giờ đi ngủ rồi nè, ${tenNguoiYeu} ơi! Ngủ ngon và mơ về anh nhé! 😍`,
+            `Chúc bé ${tenNguoiYeu} của anh có giấc mơ ngọt ngào như tình yêu của chúng mình! Ngủ ngon nha! 💕`,
+            `Chúc em yêu ${tenNguoiYeu} ngủ thật ngon, mai tỉnh dậy lại xinh đẹp hơn nữa nha! 😘`,
+            `Bé ${tenNguoiYeu} ơi, chúc em đêm nay mơ những giấc mơ đẹp như nụ cười của em! 😴`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh mong em có một đêm thật bình yên và hạnh phúc! 🌟`,
+            `Chúc ${tenNguoiYeu} yêu của anh ngủ ngon, mơ về những điều tuyệt vời nhất nhé! 💖`,
+            `Hãy ngủ thật ngon, ${tenNguoiYeu} ơi, vì anh luôn ở đây để yêu thương và che chở cho em! 😘`,
+            `Chúc ${tenNguoiYeu} ngủ ngon nha, anh sẽ gặp em trong giấc mơ đầu tiên! 😴`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh gửi một cái ôm qua gió rồi đó! 🤗`,
+            `Anh mong ${tenNguoiYeu} có một giấc ngủ thật sâu và mơ thấy anh đang nắm tay em đi dạo dưới trăng. 🌙`,
+            `Chúc ${tenNguoiYeu} ngủ ngon như một chú mèo cuộn tròn trong chăn ấm. 🐱`,
+            `Anh không thể ở cạnh ${tenNguoiYeu} tối nay, nhưng trái tim anh thì luôn nằm bên gối em. 💓`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh đã nhờ các vì sao canh giấc ngủ cho em rồi đó! ✨`,
+            `Nếu em nghe thấy tiếng gió thì đó là anh đang thì thầm: “Ngủ ngon nha ${tenNguoiYeu}, yêu em nhiều lắm!” 💌`,
+            `Anh sẽ là giấc mơ dịu dàng ru em vào giấc ngủ. 💫`,
+            `Ngủ ngon nha ${tenNguoiYeu}, đừng quên anh trong giấc mơ nhé! 🥰`,
+            `Anh gửi một triệu cái hôn qua giấc mơ. Nhận được chưa ${tenNguoiYeu}? 😚`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, để ngày mai lại là một ngày yêu nhau. 🌞`,
+            `Em là ngôi sao sáng nhất trong bầu trời của anh. Ngủ ngon nhé ${tenNguoiYeu}! ⭐`,
+            `Anh sẽ viết tiếp chuyện tình của chúng mình trong giấc mơ của em . 📜`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh sẽ canh giấc mơ cho em ngủ yên. 🛌`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, giấc mơ sẽ đưa em đến bên anh. 🚀`,
+            `Anh yêu em hơn cả những vì sao đang lấp lánh ngoài kia. Ngủ ngon nha ${tenNguoiYeu}! 🌠`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh sẽ là ánh trăng soi sáng giấc mơ của em. 🌝`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, để tình yêu mình mãi dịu dàng. 💞`,
+            `Anh sẽ là chiếc chăn ấm áp bao quanh ${tenNguoiYeu} suốt đêm nay. 🧸`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh sẽ mơ về em như mọi đêm trước đó. 😴`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, mơ thấy anh đẹp trai hơn hôm qua. 😎`,
+            `Ngủ ngon nha ${tenNguoiYeu}, đừng đạp chăn ra kẻo lạnh tim anh. 🥶`,
+            `Anh đã lập kế hoạch gặp ${tenNguoiYeu} trong giấc mơ rồi đó! 🗺️`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, mai tỉnh dậy lại yêu anh hơn nữa nha! 💓`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh sẽ là nhạc ru dịu dàng trong giấc mơ của em. 🎶`,
+            `Chúc ${tenNguoiYeu} ngủ ngon, giấc mơ sẽ là nơi chúng ta hẹn hò. 💑`,
+            `Anh chúc ${tenNguoiYeu} ngủ ngon, mơ thấy anh đang ôm em thật chặt. 🤍`,
+            `Ngủ ngon nha ${tenNguoiYeu}, anh sẽ là chiếc gối mềm nhất trong giấc mơ của em. 💤`,
+            `Chúc cô nương ngủ ngon, mơ thấy một thế giới chỉ có hai ta. 🌌`,
+            `Anh yêu em nhiều đến mức không thể ngủ nếu chưa chúc em ngủ ngon. 💘`,
+            `Ngủ ngon nha cô nương , mai dậy nhớ yêu anh gấp đôi nha! 😄`,
+            `Chúc cô nương ngủ ngon, đừng mơ thấy ai khác ngoài anh nha! 😜`
+        ];
+        const loiChucElement = document.getElementById("loiChuc");
+        document.getElementById("tenNguoiYeu").textContent = tenNguoiYeu;
+
+        function doiLoiChuc() {
+            loiChucElement.style.animation = 'none';
+            loiChucElement.offsetHeight; // Trigger reflow
+            loiChucElement.style.animation = 'typing 4s steps(60, end), blink-caret 0.75s step-end infinite';
+            loiChucElement.textContent = messages[Math.floor(Math.random() * messages.length)];
+        }
+        doiLoiChuc(); // Hiển thị lời chúc đầu tiên
+
+        // Tạo hiệu ứng sao lấp lánh
+        const starsContainer = document.querySelector(".stars");
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Tạo hiệu ứng trái tim rơi
+        function createFallingHeart() {
+            const heart = document.createElement("div");
+            heart.className = "falling-heart";
+            heart.textContent = "💖";
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+        setInterval(createFallingHeart, 500);
+    </script>
+</body>
+</html>
